@@ -1,0 +1,36 @@
+Using PostCss installation.(as we have node.js) and it has built in tools like vite support. || Production method.
+
+prerequesites: installed node on system.
+	       tailwind css intellisense extension on vs code.
+
+steps:
+
+1)npm install -D tailwindcss postcss autoprefixer vite    ( this is the vite installation method)
+
+2)npx tailwindcss init -p
+
+3) Add tailwindcss and autoprefixer to your postcss.config.js file, or wherever PostCSS is configured in your project.
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  }
+}
+
+4) Add the paths to all of your template files in your tailwind.config.js file. ( if we want to add tailwind css to only specific files, if we need to add it to all files then,content: ["*"]
+
+5) Add scripts in package.json file 
+"scripts" : { "start": "vite"}   ( so we can run the command npm run start later )
+
+6)Add the @tailwind directives for each of Tailwind’s layers to your main CSS file.(link this to your html file)
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+7)then fire command : npm run start
+
+8) use tailwind in your computer.
+
+
+
