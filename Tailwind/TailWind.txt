@@ -1,36 +1,56 @@
-Using PostCss installation.(as we have node.js) and it has built in tools like vite support. || Production method.
+postcss + vite 
 
-prerequesites: installed node on system.
-	       tailwind css intellisense extension on vs code.
+1)npm install tailwindcss @tailwindcss/vite @tailwindcss/postcss postcss vite
+2)// vite.config.js
+import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
 
-steps:
+export default defineConfig({
+  plugins: [tailwindcss()],
+  css: {
+    postcss: './postcss.config.js', // Ensures Vite uses PostCSS configuration
+  },
+});
 
-1)npm install -D tailwindcss postcss autoprefixer vite    ( this is the vite installation method)
-
-2)npx tailwindcss init -p
-
-3) Add tailwindcss and autoprefixer to your postcss.config.js file, or wherever PostCSS is configured in your project.
+3)// postcss.config.js
 module.exports = {
   plugins: {
     tailwindcss: {},
-    autoprefixer: {},
-  }
+    autoprefixer: {}, // Ensures browser compatibility
+  },
+};
+4)// tailwind.config.js
+module.exports = {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'], // Add paths to your templates
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+5)Create a CSS file (e.g., src/styles.css) to include Tailwind's layers:
+
+css
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+6)
+Add the Vite development server and build commands to your package.json:
+
+"scripts": {
+  "dev": "vite",     // Start the Vite development server
+  "build": "vite build", // Build for production
+  "preview": "vite preview" // Preview the production build
 }
 
-4) Add the paths to all of your template files in your tailwind.config.js file. ( if we want to add tailwind css to only specific files, if we need to add it to all files then,content: ["*"]
+7)<title>Vite + PostCSS + Tailwind</title>
+    <link href="/src/styles.css" rel="stylesheet">
 
-5) Add scripts in package.json file 
-"scripts" : { "start": "vite"}   ( so we can run the command npm run start later )
-
-6)Add the @tailwind directives for each of Tailwind’s layers to your main CSS file.(link this to your html file)
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-7)then fire command : npm run start
-
-8) use tailwind in your computer.
+8)Start the development server:
 
 
+npm run dev
 
+9)build for production 
+npm run build
